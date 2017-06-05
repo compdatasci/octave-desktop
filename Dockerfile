@@ -14,7 +14,9 @@ ENV OCTAVE_VERSION=4.2.1
 # Install system packages and build Octave
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        build-essential gawk gfortran \
+        build-essential \
+        gawk \
+        gfortran \
         gnuplot-x11 \
         texi2html \
         icoutils \
@@ -87,31 +89,7 @@ RUN apt-get update && \
         libwmf-dev \
         uuid-dev \
         pandoc \
-        ttf-dejavu \
-        \
-        python3-dev \
-        gfortran \
-        cmake \
-        bison \
-        flex \
-        git \
-        bash-completion \
-        bsdtar \
-        rsync \
-        wget \
-        gdb \
-        ccache \
-        \
-        libboost-filesystem-dev \
-        libboost-iostreams-dev \
-        libboost-program-options-dev \
-        libboost-system-dev \
-        libboost-thread-dev \
-        libboost-timer-dev \
-        liblapack-dev \
-        libmpich-dev \
-        libopenblas-dev \
-        mpich && \
+        ttf-dejavu && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
@@ -126,10 +104,6 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     pip3 install -U \
          setuptools \
-         requests \
-         progressbar2 \
-         PyDrive \
-         \
          numpy \
          matplotlib \
          sympy \

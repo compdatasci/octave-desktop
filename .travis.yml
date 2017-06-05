@@ -33,4 +33,5 @@ script:
       touch success)'
   # Test script without launching webbrowser and push new image if successful
   - './octave_desktop.py -d -n && docker stop $(docker ps -q)'
+  - './octave_jupyter.py -d -n && docker stop $(docker ps -q)'
   - docker images
