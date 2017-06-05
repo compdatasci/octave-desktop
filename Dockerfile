@@ -1,4 +1,4 @@
-# Builds a Docker image with Ubuntu 16.04, g++-5.4, and Smartgit
+# Builds a Docker image for Octave 4.2.1 and Jupyter Notebook for Octave
 #
 # Authors:
 # Xiangmin Jiao <xmjiao@gmail.com>
