@@ -89,7 +89,8 @@ RUN apt-get update && \
         libwmf-dev \
         uuid-dev \
         pandoc \
-        ttf-dejavu && \
+        ttf-dejavu \
+        python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
