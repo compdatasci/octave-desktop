@@ -98,6 +98,9 @@ RUN apt-get update && \
     ./configure --prefix=/usr/local && \
     make CFLAGS=-O CXXFLAGS=-O LDFLAGS= -j 2 && \
     make install && \
+    \
+    pip install sympy && \
+    octave --eval 'pkg install -forge struct parallel symbolic' && \
     rm -rf /tmp/* /var/tmp/*
 
 # Install Jupyter Notebook for Python and Octave
@@ -105,18 +108,6 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
     pip3 install -U \
          setuptools \
-         numpy \
-         matplotlib \
-         sympy \
-         scipy \
-         pandas \
-         nose \
-         sphinx \
-         flufl.lock \
-         ply \
-         pytest \
-         six \
-         urllib3 \
          ipython \
          jupyter \
          ipywidgets && \
