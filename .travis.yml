@@ -28,8 +28,8 @@ script:
   - '[[ "$TRAVIS_EVENT_TYPE" == "push" && -n "$TRAVIS_COMMIT_RANGE" &&
         -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
             grep -e Dockerfile -e .travis.yml)" ]] || [[ "$XVFB" != "1" ]] ||
-     (docker build --tag x11vnc/octave-desktop:4.2.1 --tag x11vnc/octave-desktop:latest . &&
-      docker push x11vnc/octave-desktop &&
+     (docker build --tag compdatasci/octave-desktop:4.2.1 --tag compdatasci/octave-desktop:latest . &&
+      docker push compdatasci/octave-desktop &&
       touch success)'
   # Test script without launching webbrowser and push new image if successful
   - './octave_desktop.py -d -n && docker stop $(docker ps -q)'

@@ -1,7 +1,7 @@
 # Docker Image for Octave 4.2.1
 This Docker image provides the Ubuntu 16.04 environment with X Windows with Octave 4.2.1 and Jupyter Notebook for Octave. The X Windows will display in your web browser in full-screen mode. You can use this Docker image on 64-bit Linux, Mac or Windows. It allows you to use the same programming environment regardless which OS you are running on your laptop or desktop.
 
-[![Build Status](https://travis-ci.org/x11vnc/docker-desktop.svg?branch=octave)](https://travis-ci.org/x11vnc/docker-desktop) [![](https://images.microbadger.com/badges/image/x11vnc/octave-desktop.svg)](https://microbadger.com/images/x11vnc/octave-desktop)
+[![Build Status](https://travis-ci.org/compdatasci/docker-desktop.svg?branch=octave)](https://travis-ci.org/compdatasci/docker-desktop) [![](https://images.microbadger.com/badges/image/compdatasci/octave-desktop.svg)](https://microbadger.com/images/compdatasci/octave-desktop)
 
 ## Preparation
 Before you start, you need to first install Python and Docker on your computer by following the steps below.
@@ -27,14 +27,14 @@ sudo adduser $USER docker
 Then, log out and log back in before you can use Docker.
 
 ## Running the Docker Image
-To run the Docker image, first download the script [`octave_desktop.py`](https://raw.githubusercontent.com/x11vnc/octave-desktop/master/octave_desktop.py)
+To run the Docker image, first download the script [`octave_desktop.py`](https://raw.githubusercontent.com/compdatasci/octave-desktop/master/octave_desktop.py)
 and save it to the working directory where you will store your codes and data. You can download the script using command line: On Windows, start `Windows PowerShell`, use the `cd` command to change to the working directory where you will store your codes and data, and then run the following command:
 ```
-curl https://raw.githubusercontent.com/x11vnc/octave-desktop/master/octave_desktop.py -outfile octave_desktop.py
+curl https://raw.githubusercontent.com/compdatasci/octave-desktop/master/octave_desktop.py -outfile octave_desktop.py
 ```
 On Linux or Mac, start a terminal, use the `cd` command to change to the working directory, and then run the following command:
 ```
-curl -s -O https://raw.githubusercontent.com/x11vnc/octave-desktop/master/octave_desktop.py
+curl -s -O https://raw.githubusercontent.com/compdatasci/octave-desktop/master/octave_desktop.py
 ```
 
 After downloading the script, you can start the Docker image using the command
