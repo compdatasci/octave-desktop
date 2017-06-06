@@ -16,6 +16,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         gawk \
+        git \
         gfortran \
         gnuplot-x11 \
         texi2html \
