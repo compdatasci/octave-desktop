@@ -1,7 +1,7 @@
 # Docker Image for Octave 4.2.1
 This Docker image provides the Ubuntu 16.04 environment with X Windows with Octave 4.2.1 and Jupyter Notebook for Octave. The X Windows will display in your web browser in full-screen mode. You can use this Docker image on 64-bit Linux, Mac or Windows. It allows you to use the same programming environment regardless which OS you are running on your laptop or desktop.
 
-[![Build Status](https://travis-ci.org/compdatasci/docker-desktop.svg?branch=octave)](https://travis-ci.org/compdatasci/docker-desktop) [![](https://images.microbadger.com/badges/image/compdatasci/octave-desktop.svg)](https://microbadger.com/images/compdatasci/octave-desktop)
+[![Build Status](https://travis-ci.org/compdatasci/octave-desktop.svg?branch=master)](https://travis-ci.org/compdatasci/octave-desktop) [![](https://images.microbadger.com/badges/image/compdatasci/octave-desktop.svg)](https://microbadger.com/images/compdatasci/octave-desktop)
 
 ## Preparation
 Before you start, you need to first install Python and Docker on your computer by following the steps below.
