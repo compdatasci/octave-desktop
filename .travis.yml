@@ -37,7 +37,6 @@ script:
       docker push compdatasci/octave-desktop &&
       touch success)'
   # Test script without launching webbrowser and push new image if successful
-  - docker run --rm -ti compdatasci/octave-desktop "ls project"
   - './octave_desktop.py -d -n && docker stop $(docker ps -q)'
   - './octave_jupyter.py -d -n && docker stop $(docker ps -q)'
   - docker images
