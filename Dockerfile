@@ -9,7 +9,7 @@ LABEL maintainer "Xiangmin Jiao <xmjiao@gmail.com>"
 USER root
 WORKDIR /tmp
 
-ENV OCTAVE_VERSION=4.2.1
+ARG OCTAVE_VERSION=4.2.1
 
 # Install system packages and build Octave
 RUN apt-get update && \
@@ -135,6 +135,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     \
     touch $DOCKER_HOME/.log/jupyter.log && \
+    mkdir $DOCKER_HOME/project && \
     \
     echo '@octave --force-gui' >> $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
     chown -R $DOCKER_USER:$DOCKER_GROUP $DOCKER_HOME

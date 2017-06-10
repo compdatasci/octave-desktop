@@ -5,6 +5,9 @@ language: python
 services: docker
 
 env:
+  global:
+    OCTAVE_VERSION=4.2.1
+  matrix:
   - XVFB=1
   - XVFB=0
 
@@ -28,10 +31,13 @@ script:
   - '[[ "$TRAVIS_EVENT_TYPE" == "push" && -n "$TRAVIS_COMMIT_RANGE" &&
         -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
             grep -e Dockerfile -e .travis.yml)" ]] || [[ "$XVFB" != "1" ]] ||
-     (docker build --tag compdatasci/octave-desktop:4.2.1 --tag compdatasci/octave-desktop:latest . &&
+     (docker build --build-arg OCTAVE_VERSION=$OCTAVE_VERSION
+                   --tag compdatasci/octave-desktop:$OCTAVE_VERSION
+                   --tag compdatasci/octave-desktop:latest . &&
       docker push compdatasci/octave-desktop &&
       touch success)'
   # Test script without launching webbrowser and push new image if successful
+  - docker run --rm -ti compdatasci/octave-desktop "ls project"
   - './octave_desktop.py -d -n && docker stop $(docker ps -q)'
   - './octave_jupyter.py -d -n && docker stop $(docker ps -q)'
   - docker images
