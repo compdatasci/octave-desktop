@@ -135,7 +135,6 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     \
     touch $DOCKER_HOME/.log/jupyter.log && \
-    mkdir $DOCKER_HOME/project && \
     \
     echo '@octave --force-gui' >> $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
     chown -R $DOCKER_USER:$DOCKER_GROUP $DOCKER_HOME
