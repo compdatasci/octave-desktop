@@ -25,7 +25,6 @@ Download the Docker Community Edition for free at https://www.docker.com/communi
 sudo adduser $USER docker
 ```
 Then, log out and log back in before you can use Docker.
-
 ## Running the Docker Image
 To run the Docker image, first download the script [`octave_desktop.py`](https://raw.githubusercontent.com/compdatasci/octave-desktop/master/octave_desktop.py)
 and save it to the working directory where you will store your codes and data. You can download the script using command line: On Windows, start `Windows PowerShell`, use the `cd` command to change to the working directory where you will store your codes and data, and then run the following command:
@@ -93,7 +92,6 @@ Alternatively, you can also use the "native" browsers on different platforms.
 - On Linux, the default browser *Firefox* does not hide its address bar in its native full-screen mode. You are recommended to use *Google Chrome* or *Chromium browser* instead. However, you can use *Firefox* for a full-screen viewing mode by clicking on the `Fullscreen` button in the left sidebar of Docker desktop environment. However, this is not recommended for day-to-day use, because *Firefox* would exit this full-screen mode whenever you press `Esc`, which may happen quite often.
 
 If your Docker desktop environment started automatically in a non-recommended browser, you can copy and paste the URL into a recommended browser.
-
 ## Tips and Tricks
 1. By default, Docker uses two CPU cores and 2GB of memory on Mac and Windows. If you want to run large jobs, go to the `Advanced` tab in `Settings` (or `Preferences` for Mac) and increase the amount of memory dedicated to Docker.
 2. When using the Docker image, the files under `$HOME/.config`, `$HOME/.ssh`, , $HOME/project`,  `$HOME/shared` and any other
