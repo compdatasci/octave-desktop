@@ -34,6 +34,11 @@ def parse_args(description):
                         'If the image already has a tag, its tag prevails.',
                         default="latest")
 
+    parser.add_argument('-v', '--volume',
+                        help='A data volume to be mounted at ~/' + APP + '. ' +
+                        'The default is ' + APP + '_src.',
+                        default=APP + "_src")
+
     parser.add_argument('-p', '--pull',
                         help='Pull the latest Docker image. ' +
                         'The default is not to pull.',
@@ -51,18 +56,21 @@ def parse_args(description):
                         default=False)
 
     parser.add_argument('-s', '--size',
-                        help='Size of the screen. The default is to obtaion ' +
-                        'the size of the current screen.',
-                        default="")
-
-    parser.add_argument('-v', '--volume',
-                        help='A data volume to be mounted to ~/project.',
+                        help='Size of the screen. The default is to use ' +
+                        'the current screen size.',
                         default="")
 
     parser.add_argument('-n', '--no-browser',
                         help='Do not start web browser',
                         action='store_true',
                         default=False)
+
+    parser.add_argument('-a', '--args',
+                        help='All the arguments after -a will be passed to the ' +
+                        '"docker run" command. Useful for specifying ' +
+                        'resources and environment variables.',
+                        nargs=argparse.REMAINDER,
+                        default=[])
 
     args = parser.parse_args()
     # Append tag to image if the image has no tag
@@ -273,7 +281,7 @@ if __name__ == "__main__":
     port_vnc = str(find_free_port(6080, 50))
     subprocess.call(["docker", "run", "-d", rmflag, "--name", container,
                      "-p", "127.0.0.1:" + port_vnc + ":6080"] +
-                    envs + volumes +
+                    envs + volumes + args.args +
                     [args.image, "startvnc.sh >> " +
                      docker_home + "/.log/vnc.log"])
 
