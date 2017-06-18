@@ -28,6 +28,7 @@ before_script:
 script:
   - docker --version
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_USERPASS"
+  - docker pull $BASE
   # Build only if the commit range of a push contains Dockerfile or .travis.yml
   - '[[ "$TRAVIS_EVENT_TYPE" == "push" && -n "$TRAVIS_COMMIT_RANGE" &&
         -n $(git log --since `docker inspect $BASE | grep Created | perl -e "s/.+\"([\d-:T]+).+$/$1/g" -p`) &&
