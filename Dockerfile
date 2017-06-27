@@ -67,8 +67,6 @@ RUN apt-get update && \
         libqt5scintilla2-dev \
         qttools5-dev-tools \
         qt5-default \
-        libopenblas-dev \
-        liblapack-dev \
         ghostscript \
         pstoedit \
         libaec-dev \
@@ -95,11 +93,12 @@ RUN apt-get update && \
     \
     curl -s -L http://github.com/xianyi/OpenBLAS/archive/v$OPENBLAS_VERSION.tar.gz | tar zx && \
     cd OpenBLAS-$OPENBLAS_VERSION && \
-    make BINARY=64 INTERFACE64=1 DYNAMIC_ARCH=1 && \
+    make BINARY=64 INTERFACE64=1 -j2 && \
+    make install && \
     \
     curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
     cd octave-* && \
-    ./configure --prefix=/usr/local --enable-64 && \
+    ./configure LD_LIBRARY_PATH=/opt/OpenBLAS/lib CPPFLAGS=-I/opt/OpenBLAS/include LDFLAGS=-L/opt/OpenBLAS/lib --prefix=/usr/local --enable-64 && \
     make CFLAGS=-O CXXFLAGS=-O LDFLAGS= -j 2 && \
     make install && \
     \
