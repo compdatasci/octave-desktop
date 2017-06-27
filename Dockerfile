@@ -10,6 +10,7 @@ USER root
 WORKDIR /tmp
 
 ARG OCTAVE_VERSION=4.2.1
+ARG OPENBLAS_VERSION=0.2.19
 
 # Install system packages and build Octave
 RUN apt-get update && \
@@ -91,9 +92,14 @@ RUN apt-get update && \
         python3-dev && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
+    \
+    curl -s -L http://github.com/xianyi/OpenBLAS/archive/v$OPENBLAS_VERSION.tar.gz | tar zx && \
+    cd OpenBLAS-$OPENBLAS_VERSION && \
+    make BINARY=64 INTERFACE64=1 DYNAMIC_ARCH=1 && \
+    \
     curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
     cd octave-* && \
-    ./configure --prefix=/usr/local && \
+    ./configure --prefix=/usr/local --enable-64 && \
     make CFLAGS=-O CXXFLAGS=-O LDFLAGS= -j 2 && \
     make install && \
     \
