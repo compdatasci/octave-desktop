@@ -66,14 +66,11 @@ RUN apt-get update && \
         libqt5scintilla2-dev \
         qttools5-dev-tools \
         qt5-default \
-        libopenblas-base \
-        libatlas3-base \
-        libatlas-dev \
+        libopenblas-dev \
         liblapack-dev \
         ghostscript \
         pstoedit \
         libaec-dev \
-        libblas-dev \
         libbtf1.2.1 \
         libcsparse3.1.4 \
         libexif-dev \
