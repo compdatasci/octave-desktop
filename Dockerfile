@@ -93,8 +93,9 @@ RUN apt-get update && \
     \
     curl -s -L http://github.com/xianyi/OpenBLAS/archive/v$OPENBLAS_VERSION.tar.gz | tar zx && \
     cd OpenBLAS-$OPENBLAS_VERSION && \
-    make BINARY=64 INTERFACE64=1 -j2 && \
+    make BINARY=64 INTERFACE64=1 -j2 > /dev/null 2>&1 && \
     make install && \
+    cd .. && \
     \
     curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
     cd octave-* && \
