@@ -5,6 +5,7 @@ services: docker
 
 env:
   global:
+    - BRANCH=64bit
     - OCTAVE_VERSION=4.2.1
     - BASE=x11vnc/desktop:latest
   matrix:
@@ -29,12 +30,10 @@ script:
         -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
             grep -e Dockerfile -e .travis.yml)" ]] || [[ "$XVFB" != "1" ]] ||
      (docker build --build-arg OCTAVE_VERSION=$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:latest . &&
-      docker push compdatasci/octave-desktop &&
+                   --tag compdatasci/octave-desktop:BRANCH . &&
+      docker push compdatasci/octave-desktop:BRANCH &&
       touch success)'
   # Test script without launching webbrowser and push new image if successful
-  - './octave_desktop.py -d -n -v test_project && docker stop $(docker ps -q)'
-  - './octave_desktop.py -d -n && docker stop $(docker ps -q)'
-  - './octave_jupyter.py -d -n && docker stop $(docker ps -q)'
+  - './octave_desktop.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
+  - './octave_jupyter.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
   - docker images
