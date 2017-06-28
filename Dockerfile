@@ -99,7 +99,8 @@ RUN apt-get update && \
     \
     curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
     cd octave-* && \
-    ./configure LD_LIBRARY_PATH=/opt/OpenBLAS/lib CPPFLAGS=-I/opt/OpenBLAS/include LDFLAGS=-L/opt/OpenBLAS/lib --prefix=/usr/local --enable-64 && \
+    ./configure --prefix=/usr/local CPPFLAGS=-I/opt/OpenBLAS/include \
+        LDFLAGS="-L/opt/OpenBLAS/lib --Wl,-rpath=/opt/OpenBLAS/lib" --enable-64 && \
     make CFLAGS=-O CXXFLAGS=-O LDFLAGS= -j 2 && \
     make install && \
     \
