@@ -80,7 +80,7 @@ ADD image/bin $DOCKER_HOME/bin
 USER $DOCKER_USER
 RUN cd $DOCKER_HOME && \
     curl -O -L https://launchpad.net/ubuntu/+archive/primary/+files/octave_4.2.1.orig.tar.gz && \
-    git clone --depth 3 https://github.com/xmjiao/octave-debian.git && \
+    git clone --branch xenial --depth 3 https://github.com/xmjiao/octave-debian.git && \
     DEB_CFLAGS_SET="-O2" DEB_CXXFLAGS_SET="-O2" debuild -i -us -uc -b
 
 USER root
