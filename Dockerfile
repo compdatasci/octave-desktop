@@ -21,8 +21,8 @@ RUN apt-get update && \
          fakeroot \
          devscripts \
          javahelper \
-         debhelper=10.2.2ubuntu1~ubuntu16.04.1 \
-         dh-autoreconf=12~ubuntu16.04.1 \
+         debhelper=10.\* \
+         dh-autoreconf=12\* \
          dh-exec \
          \
          automake \
@@ -80,9 +80,11 @@ ADD image/bin $DOCKER_HOME/bin
 USER $DOCKER_USER
 RUN cd $DOCKER_HOME && \
     curl -O -L https://launchpad.net/ubuntu/+archive/primary/+files/octave_${OCTAVE_VERSION}.orig.tar.gz && \
-    git clone --branch xenial --depth 3 https://github.com/xmjiao/octave-debian.git && \
-    cd octave-debian && \
-    DEB_CFLAGS_SET="-O2" DEB_CXXFLAGS_SET="-O2" debuild -i -us -uc -b
+    git clone --branch xenial --depth 3 https://github.com/xmjiao/octave-debian.git
+
+    # && \
+    #cd octave-debian && \
+    #DEB_CFLAGS_SET="-O2" DEB_CXXFLAGS_SET="-O2" debuild -i -us -uc -b
 
 USER root
 WORKDIR $DOCKER_HOME
