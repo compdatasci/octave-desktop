@@ -83,7 +83,7 @@ RUN cd $DOCKER_HOME && \
     git clone --branch xenial --depth 3 https://github.com/xmjiao/octave-debian.git && \
     cd octave-debian && \
     DEB_FFLAGS_SET="-O2" DEB_CFLAGS_SET="-O2" DEB_CXXFLAGS_SET="-O2" \
-    DEB_BUILD_OPTIONS="nocheck parallel=2" debuild -i -us -uc -b
+    DEB_BUILD_OPTIONS="nocheck" debuild -i -us -uc -b -j2
 
 USER root
 WORKDIR $DOCKER_HOME
