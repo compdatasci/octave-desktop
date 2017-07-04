@@ -24,7 +24,9 @@ script:
                    --tag compdatasci/octave-desktop:$BRANCH . &&
       docker push compdatasci/octave-desktop:$BRANCH &&
       touch success)'
+
   # Test script without launching webbrowser and push new image if successful
-  - './octave_desktop.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
-  - './octave_jupyter.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
+  - git clone https://github.com/compdatasci/octave-desktop master
+  - 'master/octave_desktop.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
+  - 'master/octave_jupyter.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
   - docker images
