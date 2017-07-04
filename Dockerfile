@@ -25,6 +25,8 @@ RUN apt-get update && \
          dh-autoreconf=12\* \
          dh-exec \
          \
+         bison \
+         libbison-dev \
          automake \
          default-jdk \
          desktop-file-utils \
