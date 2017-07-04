@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd $HOME/project/
+cd $HOME
 
 dput ppa:compdatasci/octave octave_4.2.1-2_source.changes
