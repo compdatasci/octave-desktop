@@ -5,19 +5,11 @@ services: docker
 
 env:
   global:
+    - BRANCH=debuild
     - OCTAVE_VERSION=4.2.1
     - BASE=x11vnc/desktop:latest
-  matrix:
-    - XVFB=1
-    - XVFB=0
-
-before_install:
-  # Start up xvfb
-  - '[[ "$XVFB" != "1" ]] || /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid
-     --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16'
 
 before_script:
-  - '[[ "$XVFB" != "1" ]] || export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start'
   - docker --version
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_USERPASS"
   - docker pull $BASE
@@ -27,14 +19,12 @@ script:
   - '[[ "$TRAVIS_EVENT_TYPE" == "push" && -n "$TRAVIS_COMMIT_RANGE" &&
         -n $(git log --since $(docker inspect $BASE | grep Created | perl -e "s/.+\"([\d-:T]+).+$/\$1/g" -p)) &&
         -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
-            grep -e Dockerfile -e .travis.yml)" ]] || [[ "$XVFB" != "1" ]] ||
+            grep -e Dockerfile -e .travis.yml -e image)" ]] ||
      (docker build --build-arg OCTAVE_VERSION=$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:latest . &&
-      docker push compdatasci/octave-desktop &&
+                   --tag compdatasci/octave-desktop:$BRANCH . &&
+      docker push compdatasci/octave-desktop:$BRANCH &&
       touch success)'
   # Test script without launching webbrowser and push new image if successful
-  - './octave_desktop.py -d -n -v test_project && docker stop $(docker ps -q)'
-  - './octave_desktop.py -d -n && docker stop $(docker ps -q)'
-  - './octave_jupyter.py -d -n && docker stop $(docker ps -q)'
+  - git clone https://github.com/compdatasci/octave-desktop master
+  - 'master/octave_desktop.py -d -n -t $BRANCH && docker stop $(docker ps -q)'
   - docker images
