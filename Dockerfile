@@ -15,8 +15,6 @@ ARG OCTAVE_VERSION=4.2.1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
          build-essential \
-         bison \
-         flex \
          gfortran \
          gnupg-agent \
          dput \
@@ -28,6 +26,7 @@ RUN apt-get update && \
          dh-exec \
          \
          automake \
+         bison \
          default-jdk \
          desktop-file-utils \
          dh-exec \
@@ -37,6 +36,7 @@ RUN apt-get update && \
          gfortran \
          ghostscript \
          gnuplot-nox \
+         icoutils \
          javahelper \
          less \
          libarpack2-dev \
@@ -60,6 +60,7 @@ RUN apt-get update && \
          libqt4-dev \
          libqt4-opengl-dev \
          libreadline-dev \
+         librsvg2-bin \
          libsndfile1-dev \
          libsuitesparse-dev \
          libxft-dev \
