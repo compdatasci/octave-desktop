@@ -21,8 +21,8 @@ RUN apt-get update && \
          fakeroot \
          devscripts \
          javahelper \
-         debhelper=10.2.2ubuntu1 \
-         dh-autoreconf=12 \
+         debhelper=10.2.2ubuntu1~ubuntu16.04.1 \
+         dh-autoreconf=12~ubuntu16.04.1 \
          dh-exec \
          \
          automake \
