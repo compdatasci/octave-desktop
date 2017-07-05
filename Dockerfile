@@ -10,102 +10,79 @@ USER root
 WORKDIR /tmp
 
 ARG OCTAVE_VERSION=4.2.1
+ARG CRED=secret
 
 # Install system packages and build Octave
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
-        gawk \
-        git \
         gfortran \
-        gnuplot-x11 \
-        texi2html \
-        icoutils \
-        libxft-dev \
-        gperf \
-        libbison-dev \
-        libqhull-dev \
-        libglpk-dev \
-        libcurl4-gnutls-dev \
-        libfltk-cairo1.3 \
-        libfltk-forms1.3 \
-        libfltk-images1.3 \
-        libfltk1.3-dev \
-        librsvg2-dev \
-        libqrupdate-dev \
-        libgl2ps-dev \
-        libarpack2-dev \
-        libreadline-dev \
-        libncurses-dev \
-        hdf5-helpers \
-        libhdf5-cpp-11 \
-        libhdf5-dev \
-        llvm-dev \
-        openjdk-8-jdk \
-        openjdk-8-jre-headless \
+        cmake \
+        bsdtar \
+        rsync \
         texinfo \
-        libfftw3-dev \
-        libgraphicsmagick++1-dev \
-        libgraphicsmagick1-dev \
-        libjasper-dev \
-        libfreeimage-dev \
-        transfig \
-        epstool \
-        librsvg2-bin \
-        libosmesa6-dev \
-        libsndfile-dev \
-        libsndfile1-dev \
-        libportaudiocpp0 \
-        portaudio19-dev \
-        lzip \
-        libqt5core5a \
-        libqt5gui5 \
-        libqt5network5 \
-        libqt5opengl5 \
-        libqt5opengl5-dev \
-        libqt5scintilla2-dev \
-        qttools5-dev-tools \
-        qt5-default \
-        libopenblas-dev \
+        info \
+        \
+        libpcre3 \
+        libqhull7 \
+        libqrupdate1 \
+        libqscintilla2-12v5 \
+        libqtcore4 \
+        libqtgui4 \
+        libqt4-network \
+        libqt4-opengl \
+        libreadline-dev \
+        libxft2 \
+        libncurses5-dev \
+        libhdf5-dev \
+        libblas-dev \
         liblapack-dev \
-        ghostscript \
-        pstoedit \
-        libaec-dev \
-        libbtf1.2.1 \
-        libcsparse3.1.4 \
-        libexif-dev \
-        libflac-dev \
-        libftgl-dev \
-        libftgl2 \
-        libjack-dev \
-        libklu1.3.3 \
-        libldl2.2.1 \
-        libogg-dev \
-        libspqr2.0.2 \
+        libarpack2 \
+        libfftw3-dev \
         libsuitesparse-dev \
-        libvorbis-dev \
-        libwmf-dev \
-        uuid-dev \
+        libfltk1.3 \
+        libfltk-gl1.3 \
+        libglpk36 \
+        libglu1 \
+        libosmesa6 \
+        libglu1-mesa \
+        libgl1-mesa-dev \
+        libgl2ps0 \
+        libgraphicsmagick++-q16-12 \
+        libgraphicsmagick-q16-3 \
+        libzip4 \
+        libsndfile1 \
+        portaudio19-dev \
+        \
+        gnuplot-x11 \
+        libopenblas-base \
+        \
+        python3-dev \
         pandoc \
-        ttf-dejavu \
-        python3-dev && \
+        ttf-dejavu && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    curl -s ftp://ftp.gnu.org/gnu/octave/octave-${OCTAVE_VERSION}.tar.gz | tar zx && \
-    cd octave-* && \
-    ./configure --prefix=/usr/local && \
-    make CFLAGS=-O CXXFLAGS=-O LDFLAGS= -j 2 && \
-    make install && \
+    \
+    curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python3 get-pip.py && \
+    pip3 install -U setuptools && \
+    \
+    git clone --depth 1 https://github.com/hpdata/gdutil /usr/local/gdutil && \
+    pip2 install -r /usr/local/gdutil/requirements.txt && \
+    pip3 install -r /usr/local/gdutil/requirements.txt && \
+    ln -s -f /usr/local/gdutil/bin/* /usr/local/bin/ && \
+    \
+    echo $(sh -c "echo '$CRED'") > mycred.txt && \
+    gd-get -c . -p 0ByTwsK5_Tl_PZEszd0ZnWkdrRjA '*.deb' && \
+    dpkg -i octave_4.2.1-2_amd64.deb  liboctave4_4.2.1-2_amd64.deb \
+        octave-common_4.2.1-2_all.deb liboctave-dev_4.2.1-2_amd64.deb \
+        octave-info_4.2.1-2_all.deb && \
     \
     pip install sympy && \
     octave --eval 'pkg install -forge struct parallel symbolic' && \
-    rm -rf /tmp/* /var/tmp/*
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Jupyter Notebook for Python and Octave
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python3 get-pip.py && \
-    pip3 install -U \
-         setuptools \
+RUN pip3 install -U \
          ipython \
          jupyter \
          ipywidgets && \
