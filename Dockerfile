@@ -56,6 +56,10 @@ RUN apt-get update && \
          libpcre3-dev \
          libqhull-dev \
          libqrupdate-dev \
+         libqt5opengl5-dev \
+         libqt5scintilla2-dev \
+         qttools5-dev-tools \
+         qt5-default \
          libqscintilla2-dev \
          libqt4-dev \
          libqt4-opengl-dev \
