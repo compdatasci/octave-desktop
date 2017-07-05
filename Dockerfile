@@ -10,79 +10,37 @@ USER root
 WORKDIR /tmp
 
 ARG OCTAVE_VERSION=4.2.1
-ARG CRED=secret
 
 # Install system packages and build Octave
-RUN apt-get update && \
+RUN add-apt-repository ppa:compdatasci/octave && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         gfortran \
         cmake \
         bsdtar \
         rsync \
-        texinfo \
-        info \
-        \
-        libpcre3 \
-        libqhull7 \
-        libqrupdate1 \
-        libqscintilla2-12v5 \
-        libqtcore4 \
-        libqtgui4 \
-        libqt4-network \
-        libqt4-opengl \
-        libreadline-dev \
-        libxft2 \
-        libncurses5-dev \
-        libhdf5-dev \
-        libblas-dev \
-        liblapack-dev \
-        libarpack2 \
-        libfftw3-dev \
-        libsuitesparse-dev \
-        libfltk1.3 \
-        libfltk-gl1.3 \
-        libglpk36 \
-        libglu1 \
-        libosmesa6 \
-        libglu1-mesa \
-        libgl1-mesa-dev \
-        libgl2ps0 \
-        libgraphicsmagick++-q16-12 \
-        libgraphicsmagick-q16-3 \
-        libzip4 \
-        libsndfile1 \
-        portaudio19-dev \
         \
         gnuplot-x11 \
         libopenblas-base \
+        \
+        octave=$OCTAVE_VERSION\* \
+        liboctave-dev=$OCTAVE_VERSION\* \
+        octave-info=$OCTAVE_VERSION\* \
         \
         python3-dev \
         pandoc \
         ttf-dejavu && \
     apt-get clean && \
-    \
-    curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python3 get-pip.py && \
-    pip3 install -U setuptools && \
-    \
-    git clone --depth 1 https://github.com/hpdata/gdutil /usr/local/gdutil && \
-    pip2 install -r /usr/local/gdutil/requirements.txt && \
-    pip3 install -r /usr/local/gdutil/requirements.txt && \
-    ln -s -f /usr/local/gdutil/bin/* /usr/local/bin/ && \
-    \
-    echo $(sh -c "echo '$CRED'") > mycred.txt && \
-    gd-get -c . -p 0ByTwsK5_Tl_PZEszd0ZnWkdrRjA '*.deb' && \
-    dpkg -i octave_4.2.1-2_amd64.deb  liboctave4_4.2.1-2_amd64.deb \
-        octave-common_4.2.1-2_all.deb liboctave-dev_4.2.1-2_amd64.deb \
-        octave-info_4.2.1-2_all.deb && \
-    \
     pip install sympy && \
     octave --eval 'pkg install -forge struct parallel symbolic' && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install Jupyter Notebook for Python and Octave
-RUN pip3 install -U \
+RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
+    python3 get-pip.py && \
+    pip3 install -U \
+         setuptools \
          ipython \
          jupyter \
          ipywidgets && \
