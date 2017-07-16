@@ -179,7 +179,6 @@ if __name__ == "__main__":
     import os
     import webbrowser
     import platform
-    import glob
 
     args = parse_args(description=__doc__)
 
