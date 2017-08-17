@@ -36,6 +36,8 @@ RUN add-apt-repository ppa:compdatasci/octave && \
     octave --eval 'pkg install -forge struct parallel symbolic' && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+ADD image/home $DOCKER_HOME
+
 # Install Jupyter Notebook for Python and Octave
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python3 get-pip.py && \
