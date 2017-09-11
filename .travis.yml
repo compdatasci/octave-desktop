@@ -18,7 +18,7 @@ script:
   - '[[ "$TRAVIS_EVENT_TYPE" == "push" && -n "$TRAVIS_COMMIT_RANGE" &&
         -n $(git log --since $(docker inspect $BASE | grep Created | perl -e "s/.+\"([\d-:T]+).+$/\$1/g" -p)) &&
         -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
-            grep -e Dockerfile -e .travis.yml)" ]] ||
+            grep -e Dockerfile -e .travis.yml -e image)" ]] ||
      (docker build --build-arg OCTAVE_VERSION=$OCTAVE_VERSION
                    --tag compdatasci/octave-desktop:$OCTAVE_VERSION
                    --tag compdatasci/octave-desktop:latest . &&
