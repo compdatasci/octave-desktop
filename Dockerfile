@@ -21,6 +21,7 @@ RUN add-apt-repository ppa:compdatasci/octave && \
         cmake \
         bsdtar \
         rsync \
+        imagemagick \
         \
         gnuplot-x11 \
         libopenblas-base \
