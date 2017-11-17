@@ -137,7 +137,7 @@ def handle_interrupt(container):
     except KeyboardInterrupt:
         print('*** Stopping the server.')
         subprocess.Popen(["docker", "exec", container,
-                          "killall", "jupyter-notebook"],
+                          "killall", "my_init"],
                          stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         sys.exit(0)
 

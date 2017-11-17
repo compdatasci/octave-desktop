@@ -3,7 +3,7 @@
 # Authors:
 # Xiangmin Jiao <xmjiao@gmail.com>
 
-FROM x11vnc/desktop:latest
+FROM x11vnc/desktop:17.10
 LABEL maintainer "Xiangmin Jiao <xmjiao@gmail.com>"
 
 USER root
@@ -11,9 +11,8 @@ WORKDIR /tmp
 
 ARG OCTAVE_VERSION=4.2.1
 
-# Install system packages and build Octave
-RUN add-apt-repository ppa:compdatasci/octave && \
-    apt-get update && \
+# Install system packages and Octave
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         wget \
         build-essential \
@@ -26,17 +25,19 @@ RUN add-apt-repository ppa:compdatasci/octave && \
         gnuplot-x11 \
         libopenblas-base \
         \
-        octave=$OCTAVE_VERSION\* \
-        liboctave-dev=$OCTAVE_VERSION\* \
-        octave-info=$OCTAVE_VERSION\* \
+        octave \
+        liboctave-dev \
+        octave-info \
+        octave-symbolic \
+        octave-parallel \
+        octave-struct \
         \
         python3-dev \
         pandoc \
         ttf-dejavu && \
     apt-get clean && \
-    pip install sympy && \
+    apt-get autoremove && \
     curl -L https://github.com/hbin/top-programming-fonts/raw/master/install.sh | bash && \
-    octave --eval 'pkg install -forge struct parallel symbolic' && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD image/home $DOCKER_HOME

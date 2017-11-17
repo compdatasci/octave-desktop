@@ -5,7 +5,6 @@ services: docker
 
 env:
   global:
-    - OCTAVE_VERSION=4.2.1
     - BASE=x11vnc/desktop:latest
 
 before_script:
@@ -19,8 +18,7 @@ script:
         -n $(git log --since $(docker inspect $BASE | grep Created | perl -e "s/.+\"([\d-:T]+).+$/\$1/g" -p)) &&
         -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
             grep -e Dockerfile -e .travis.yml -e image)" ]] ||
-     (docker build --build-arg OCTAVE_VERSION=$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:$OCTAVE_VERSION
+     (docker build --tag compdatasci/octave-desktop:$OCTAVE_VERSION
                    --tag compdatasci/octave-desktop:latest . &&
       docker push compdatasci/octave-desktop &&
       touch success)'
