@@ -74,7 +74,6 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     \
     touch $DOCKER_HOME/.log/jupyter.log && \
     \
-    echo '@octave --force-gui' >> $DOCKER_HOME/.config/lxsession/LXDE/autostart && \
     chown -R $DOCKER_USER:$DOCKER_GROUP $DOCKER_HOME
 
 WORKDIR $DOCKER_HOME
