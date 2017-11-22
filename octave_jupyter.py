@@ -295,10 +295,13 @@ if __name__ == "__main__":
                 sys.exit(0)
 
             print("Press Ctrl-C to stop the server.")
+            time.sleep(1)
 
             # Wait till the container exits or Ctlr-C is pressed
-            subprocess.check_output(["docker", "exec", container,
-                                     "tail", "-f", "/dev/null"])
+            subprocess.call(["docker", "exec", container,
+                             "tail", "-F", "-n", "0",
+                             docker_home + "/.log/jupyter.log"])
+
         except subprocess.CalledProcessError:
             try:
                 # If Docker process no long exists, exit
