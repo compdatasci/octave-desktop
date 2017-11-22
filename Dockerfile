@@ -39,7 +39,7 @@ RUN apt-get update && \
         libreadline-dev \
         libncurses-dev \
         hdf5-helpers \
-        libhdf5-cpp-11 \
+        libhdf5-cpp-100 \
         libhdf5-dev \
         llvm-dev \
         openjdk-8-jdk \
@@ -48,7 +48,6 @@ RUN apt-get update && \
         libfftw3-dev \
         libgraphicsmagick++1-dev \
         libgraphicsmagick1-dev \
-        libjasper-dev \
         libfreeimage-dev \
         transfig \
         epstool \
@@ -70,17 +69,17 @@ RUN apt-get update && \
         ghostscript \
         pstoedit \
         libaec-dev \
-        libbtf1.2.1 \
-        libcsparse3.1.4 \
+        libbtf1 \
+        libcxsparse3 \
         libexif-dev \
         libflac-dev \
         libftgl-dev \
         libftgl2 \
         libjack-dev \
-        libklu1.3.3 \
-        libldl2.2.1 \
+        libklu1 \
+        libldl2 \
         libogg-dev \
-        libspqr2.0.2 \
+        libspqr2 \
         libsuitesparse-dev \
         libvorbis-dev \
         libwmf-dev \
