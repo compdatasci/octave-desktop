@@ -1,31 +1,14 @@
 os: linux
-dist: trusty
 language: python
 services: docker
 
-env:
-  global:
-    - OCTAVE_VERSION=4.2.1
-    - BASE=x11vnc/desktop:latest
+env: OCTAVE_VERSION=4.2.1
 
 before_script:
-  - docker --version
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_USERPASS"
-  - docker pull $BASE
+  - git clone --depth=1 https://$GIT_TOKEN@github.com/xmjiao/ci-util.git 2> /dev/null
 
 script:
-  # Build only if the commit range of a push contains Dockerfile or .travis.yml
-  - '[[ "$TRAVIS_EVENT_TYPE" == "push" && -n "$TRAVIS_COMMIT_RANGE" &&
-        -n $(git log --since $(docker inspect $BASE | grep Created | perl -e "s/.+\"([\d-:T]+).+$/\$1/g" -p)) &&
-        -z "$(git diff --name-only $TRAVIS_COMMIT_RANGE |
-            grep -e Dockerfile -e .travis.yml -e image)" ]] ||
-     (docker build --build-arg OCTAVE_VERSION=$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:$OCTAVE_VERSION
-                   --tag compdatasci/octave-desktop:latest . &&
-      docker push compdatasci/octave-desktop &&
-      touch success)'
-  # Test script without launching webbrowser and push new image if successful
-  - './octave_desktop.py -d -n -v test_project && docker stop $(docker ps -q)'
-  - './octave_desktop.py -d -n && docker stop $(docker ps -q)'
-  - './octave_jupyter.py -d -n && docker stop $(docker ps -q)'
-  - docker images
+  - './ci-util/build-docker.sh : :${OCTAVE_VERSION},latest --build-arg OCTAVE_VERSION=$OCTAVE_VERSION &&
+     ./octave_desktop.py -d -n && docker stop $(docker ps -q) &&
+     ./octave_jupyter.py -d -n && docker stop $(docker ps -q) &&
+     ./ci-util/trigger-via-api.sh'
