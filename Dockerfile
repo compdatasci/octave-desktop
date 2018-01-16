@@ -69,7 +69,6 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     jupyter nbextension enable --system \
         calico-spell-check && \
     pip3 install -U octave_kernel && \
-    python3 -m octave_kernel.install && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     \
     touch $DOCKER_HOME/.log/jupyter.log && \
