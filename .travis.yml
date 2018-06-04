@@ -9,6 +9,4 @@ before_script:
 
 script:
   - './ci-util/build-docker.sh : :${OCTAVE_VERSION},latest --build-arg OCTAVE_VERSION=$OCTAVE_VERSION &&
-     ./octave_desktop.py -d -n && docker stop $(docker ps -q) &&
-     ./octave_jupyter.py -d -n && docker stop $(docker ps -q) &&
      ./ci-util/trigger-via-api.sh'
