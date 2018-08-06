@@ -5,8 +5,12 @@ services: docker
 env: OCTAVE_VERSION=4.2.1
 
 before_script:
-  - git clone --depth=1 https://$GIT_TOKEN@github.com/xmjiao/ci-util.git 2> /dev/null
+  - git clone --depth=1 https://$GIT_TOKEN@github.com/xmjiao/ci-util.git
 
 script:
-  - './ci-util/build-docker.sh : :${OCTAVE_VERSION},latest --build-arg OCTAVE_VERSION=$OCTAVE_VERSION &&
-     ./ci-util/trigger-via-api.sh'
+  - './ci-util/build-docker.sh : :$TRAVIS_BRANCH,$OCTAVE_VERSION,latest --build-arg OCTAVE_VERSION=$OCTAVE_VERSION &&
+     ./octave_desktop.py -t $TRAVIS_BRANCH -d -n -V && docker stop $(docker ps -q) &&
+     ./octave_jupyter.py -t $TRAVIS_BRANCH -d -n -V && docker stop $(docker ps -q)'
+
+after_success:
+  - ./ci-util/trigger-via-api.sh
