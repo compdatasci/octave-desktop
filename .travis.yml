@@ -2,13 +2,13 @@ os: linux
 language: python
 services: docker
 
-env: OCTAVE_VERSION=4.2.1
+env: OCTAVE_VERSION=4.2.2
 
 before_script:
   - git clone --depth=1 https://$GIT_TOKEN@github.com/xmjiao/ci-util.git
 
 script:
-  - './ci-util/build-docker.sh : :$TRAVIS_BRANCH,$OCTAVE_VERSION,latest --build-arg OCTAVE_VERSION=$OCTAVE_VERSION &&
+  - './ci-util/build-docker.sh : :$TRAVIS_BRANCH,$OCTAVE_VERSION --build-arg OCTAVE_VERSION=$OCTAVE_VERSION &&
      ./octave_desktop.py -t $TRAVIS_BRANCH -d -n -V && docker stop $(docker ps -q) &&
      ./octave_jupyter.py -t $TRAVIS_BRANCH -d -n -V && docker stop $(docker ps -q)'
 
