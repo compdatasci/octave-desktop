@@ -1,4 +1,4 @@
-# Builds a Docker image for Octave 4.2.1 and Jupyter Notebook for Octave
+# Builds a Docker image for Octave 4.2.2 and Jupyter Notebook for Octave
 #
 # Authors:
 # Xiangmin Jiao <xmjiao@gmail.com>
@@ -8,8 +8,6 @@ LABEL maintainer "Xiangmin Jiao <xmjiao@gmail.com>"
 
 USER root
 WORKDIR /tmp
-
-ARG OCTAVE_VERSION=4.2.1
 
 # Install system packages and Octave
 RUN apt-get update && \
@@ -23,6 +21,10 @@ RUN apt-get update && \
         imagemagick \
         \
         gnuplot-x11 \
+        ghostscript \
+        fig2dev \
+        epstool \
+        pstoedit \
         libopenblas-base \
         \
         octave \
