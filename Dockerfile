@@ -1,15 +1,13 @@
-# Builds a Docker image for Octave 4.2.2 and Jupyter Notebook for Octave
+# Builds a Docker image for Octave and Jupyter Notebook for Octave
 #
 # Authors:
 # Xiangmin Jiao <xmjiao@gmail.com>
 
-FROM compdatasci/petsc-desktop:18.04
+FROM compdatasci/petsc-desktop:20.04
 LABEL maintainer "Xiangmin Jiao <xmjiao@gmail.com>"
 
 USER root
 WORKDIR /tmp
-
-ARG OCTAVE_VERSION=4.2.2
 
 # Install system packages and Octave
 RUN apt-get update && \
