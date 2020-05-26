@@ -1,4 +1,4 @@
-# Builds a Docker image for Octave 4.2.2 and Jupyter Notebook for Octave
+# Builds a Docker image for Octave and Jupyter Notebook for Octave
 #
 # Authors:
 # Xiangmin Jiao <xmjiao@gmail.com>
