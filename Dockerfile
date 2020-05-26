@@ -16,7 +16,6 @@ RUN apt-get update && \
         build-essential \
         gfortran \
         cmake \
-        bsdtar \
         rsync \
         imagemagick \
         \
